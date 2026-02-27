@@ -40,6 +40,7 @@ a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
 a:hover { color: #93c5fd; }
 .accent { color: var(--accent); }
 .container { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+.container-wide { max-width: 1320px; padding: 0 40px; }
 img { display: block; }
 
 /* Scrollbar */
@@ -318,8 +319,8 @@ section:nth-child(even) { background: var(--bg2); }
 
 /* ── EXPERIENCE TIMELINE ─────────────────────────────────── */
 .timeline { display: flex; flex-direction: column; gap: 0; }
-.timeline-item { display: grid; grid-template-columns: 160px 40px 1fr; gap: 0; align-items: start; }
-.timeline-left { text-align: right; padding-top: 16px; padding-right: 16px; }
+.timeline-item { display: grid; grid-template-columns: 200px 52px 1fr; gap: 0; align-items: start; }
+.timeline-left { text-align: right; padding-top: 18px; padding-right: 20px; }
 .tl-date { font-family: var(--mono); font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 6px; }
 .tl-badge {
   display: inline-block; font-size: 10px; font-weight: 700;
@@ -341,9 +342,9 @@ section:nth-child(even) { background: var(--bg2); }
 .timeline-item:last-child .tl-line { display: none; }
 
 .timeline-card {
-  margin: 8px 0 32px 20px;
+  margin: 8px 0 36px 24px;
   background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 24px 26px;
+  border-radius: var(--radius); padding: 28px 32px;
   transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
 }
 .timeline-item:hover .timeline-card { border-color: var(--border-hov); box-shadow: var(--glow); transform: translateX(4px); }

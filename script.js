@@ -32,6 +32,7 @@ highlightNavLink();
 /* ── Typewriter effect ─────────────────────────────────────── */
 const phrases = [
   'Cyber Security Lead',
+  'IT Audit Specialist',
   'Email Threat Analyst',
   'ISMS Manager',
   'Information Security Professional',

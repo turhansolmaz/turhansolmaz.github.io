@@ -243,18 +243,20 @@ document.querySelectorAll('.stat').forEach(el => statObserver.observe(el));
   else draw();
 })();
 
-/* ── Cert logo fallback — hide broken <img> cleanly ───────── */
-document.querySelectorAll('.cert-logo').forEach(img => {
-  img.addEventListener('error', () => {
-    img.style.display = 'none';
-    const fallback = img.closest('.cert-logo-wrap')?.querySelector('.cert-logo-fallback');
-    if (fallback) fallback.style.display = 'flex';
-  });
-});
-
-/* ── Company logo fallback ─────────────────────────────────── */
-document.querySelectorAll('.tc-logo').forEach(img => {
-  img.addEventListener('error', () => { img.style.display = 'none'; });
+/* ── Image fallbacks (no inline handlers, CSP-friendly) ────── */
+function handleImageError(img) {
+  if (img.dataset.fallback && img.src !== img.dataset.fallback) {
+    img.src = img.dataset.fallback;
+    return;
+  }
+  img.style.display = 'none';
+  const fallback = img.closest('.cert-logo-wrap')?.querySelector('.cert-logo-fallback');
+  if (fallback) fallback.style.display = 'flex';
+}
+document.querySelectorAll('img.cert-logo, img.tc-logo, img[data-fallback]').forEach(img => {
+  img.addEventListener('error', () => handleImageError(img));
+  /* Images that already failed before this script ran */
+  if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) handleImageError(img);
 });
 
 /* ── Scroll progress bar ───────────────────────────────────── */

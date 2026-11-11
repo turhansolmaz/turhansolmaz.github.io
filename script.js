@@ -195,6 +195,7 @@ document.querySelectorAll('.stat').forEach(el => statObserver.observe(el));
 (function initMatrix() {
   const canvas = document.getElementById('matrixCanvas');
   if (!canvas) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const ctx   = canvas.getContext('2d');
   const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノ'.split('');
   let cols, drops, animId;
@@ -255,6 +256,28 @@ document.querySelectorAll('.cert-logo').forEach(img => {
 document.querySelectorAll('.tc-logo').forEach(img => {
   img.addEventListener('error', () => { img.style.display = 'none'; });
 });
+
+/* ── Scroll progress bar ───────────────────────────────────── */
+const scrollProgress = document.getElementById('scrollProgress');
+function updateScrollProgress() {
+  if (!scrollProgress) return;
+  const root = document.documentElement;
+  const max = root.scrollHeight - root.clientHeight;
+  scrollProgress.style.transform = `scaleX(${max > 0 ? Math.min(1, root.scrollTop / max) : 0})`;
+}
+window.addEventListener('scroll', updateScrollProgress, { passive: true });
+window.addEventListener('resize', updateScrollProgress);
+updateScrollProgress();
+
+/* ── Hero cursor spotlight (mouse/trackpad only) ───────────── */
+const heroSection = document.getElementById('hero');
+if (heroSection && window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  heroSection.addEventListener('pointermove', e => {
+    const rect = heroSection.getBoundingClientRect();
+    heroSection.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+    heroSection.style.setProperty('--my', `${e.clientY - rect.top}px`);
+  });
+}
 
 /* ── Glowing card follow cursor ────────────────────────────── */
 document.querySelectorAll('.cert-card, .skill-card, .project-card').forEach(card => {
